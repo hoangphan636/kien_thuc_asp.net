@@ -1,0 +1,34 @@
+public:
+
+Truy cập không bị giới hạn.
+Có thể truy cập từ bất kỳ đâu, bao gồm cả bên ngoài assembly.
+
+
+private:
+
+Chỉ có thể truy cập trong cùng một class hoặc struct.
+Mức hạn chế nhất.
+
+
+protected:
+
+Có thể truy cập trong cùng class và các class kế thừa.
+Không thể truy cập từ bên ngoài class kế thừa.
+
+
+internal:
+
+Có thể truy cập trong cùng một assembly.
+Không thể truy cập từ assembly khác.
+
+
+protected internal:
+
+Kết hợp của protected và internal.
+Có thể truy cập trong cùng assembly hoặc từ các class kế thừa ở assembly khác.
+
+
+private protected (từ C# 7.2):
+
+Kết hợp của private và protected.
+Chỉ có thể truy cập trong cùng class hoặc các class kế thừa trong cùng một assembly.

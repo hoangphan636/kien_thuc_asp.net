@@ -1,0 +1,15 @@
+Struct trong C# được sử dụng để tạo ra các kiểu dữ liệu giá trị (value types). Chúng có một số đặc điểm và ứng dụng quan trọng:
+
+*****  Tạo kiểu dữ liệu nhỏ gọn:
+
+Struct thích hợp để biểu diễn các đối tượng nhỏ, đơn giản.
+Ví dụ: điểm trong không gian 2D, màu sắc, số phức.
+*****  Hiệu suất:
+
+Struct được lưu trữ trên stack, không phải heap, nên có thể nhanh hơn class trong một số trường hợp.
+Phù hợp cho các ứng dụng yêu cầu hiệu suất cao, như game development.
+
+
+*****  Immutability:
+
+Struct thường được thiết kế để bất biến (immutable), giúp code an toàn hơn.

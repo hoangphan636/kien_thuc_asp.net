@@ -1,0 +1,66 @@
+	1. Normal Index (Non-Unique Index):
+Giải thích:
+Đây là một index thông thường, không yêu cầu các giá trị trong cột được index phải là duy nhất. 
+Nó chỉ đơn giản là tạo ra một cấu trúc giúp tăng tốc độ truy vấn khi tìm kiếm dữ liệu theo giá trị của cột đó.
+Khi nào sử dụng:
+
+Sử dụng Normal Index khi bạn có các cột thường xuyên được sử dụng trong các câu lệnh WHERE, ORDER BY, hoặc GROUP BY,
+ nhưng không cần thiết phải đảm bảo tính duy nhất của dữ liệu trong các cột đó.  
+
+Ví dụ: bạn có thể sử dụng Normal Index trên cột Category trong bảng sản phẩm để tăng tốc độ truy vấn các sản phẩm thuộc một loại cụ thể.
+
+*******Không sử dụng khi:
+-Dữ liệu quá nhỏ: Khi bảng chỉ chứa một lượng dữ liệu nhỏ, việc tạo index có thể không mang lại lợi ích gì và thậm chí còn làm tăng thêm chi phí bảo trì.
+-Cột có nhiều giá trị trùng lặp: Nếu cột có quá nhiều giá trị trùng lặp, Normal Index sẽ ít hiệu quả vì nhiều hàng sẽ có cùng một giá trị, làm giảm tốc độ truy vấn.
+-Thường xuyên thực hiện các hoạt động ghi (INSERT/UPDATE/DELETE): Index làm tăng chi phí cập nhật dữ liệu, vì vậy nếu bảng thường xuyên thay đổi, việc có quá nhiều index có thể làm giảm hiệu suất.
+ 
+	2. Unique Index:
+Giải thích:
+Unique Index đảm bảo rằng các giá trị trong một cột (hoặc nhóm cột) là duy nhất. Nếu có bất kỳ cố gắng nào để chèn một giá trị trùng lặp vào cột đã có Unique Index, cơ sở dữ liệu sẽ từ chối và báo lỗi.
+Khi nào sử dụng:
+Sử dụng Unique Index khi bạn cần đảm bảo rằng không có giá trị trùng lặp trong cột đó.
+ Ví dụ: Unique Index thường được áp dụng trên các cột như Email trong bảng người dùng, để đảm bảo rằng không có hai người dùng nào có cùng một địa chỉ email.
+
+********Không sử dụng khi:
+-Cần cho phép trùng lặp: Khi bạn cần cho phép trùng lặp giá trị trong một cột, bạn sẽ không thể sử dụng Unique Index.
+-Dữ liệu được thêm vào thường xuyên: Khi dữ liệu được thêm vào với tần suất cao, việc đảm bảo tính duy nhất có thể gây ra chi phí hiệu suất, đặc biệt là khi có nhiều tranh chấp (contention) trên các giá trị tương tự.
+-Đã có Primary Key trên cột đó: Nếu cột đã được chỉ định làm Primary Key, thì Unique Index sẽ trở nên thừa thãi.
+
+	3. Full-Text Index:
+Giải thích:
+Full-Text Index được thiết kế để tăng tốc độ tìm kiếm văn bản trong các cột lớn chứa dữ liệu dạng văn bản, 
+như bài viết, mô tả sản phẩm, hoặc các tài liệu. Nó hỗ trợ các truy vấn tìm kiếm văn bản phức tạp, như tìm kiếm theo từ khóa hoặc tìm kiếm theo dạng gần đúng.
+Khi nào sử dụng:
+Sử dụng Full-Text Index khi bạn cần thực hiện các truy vấn tìm kiếm văn bản trong các cột có chứa nhiều nội dung văn bản. 
+Ví dụ: trong một ứng dụng blog, bạn có thể sử dụng Full-Text Index trên cột Content để tăng tốc độ tìm kiếm các bài viết chứa một từ khóa cụ thể.
+	
+****Không sử dụng khi:
+-Dữ liệu không phải là văn bản: Nếu cột không chứa dữ liệu dạng văn bản (text), Full-Text Index sẽ không có tác dụng và không nên sử dụng.
+-Ít truy vấn tìm kiếm văn bản: Nếu ứng dụng của bạn hiếm khi cần tìm kiếm văn bản trong nội dung, việc tạo Full-Text Index sẽ không mang lại lợi ích.
+-Cột có dữ liệu ngắn hoặc cột thường xuyên thay đổi: Full-Text Index yêu cầu tài nguyên để cập nhật và bảo trì, do đó, với các cột có dữ liệu ngắn hoặc thường xuyên thay đổi, hiệu suất có thể bị ảnh hưởng.
+
+	4. Primary Index (Primary Key Index):
+Giải thích:
+	Primary Index được tự động tạo ra khi bạn xác định một cột (hoặc nhóm cột) làm Primary Key. 
+Nó đảm bảo tính duy nhất và không được phép null của cột đó, đồng thời sắp xếp dữ liệu theo thứ tự vật lý của cột này.
+Khi nào sử dụng:
+	Primary Index luôn được sử dụng cho cột (hoặc nhóm cột) được chọn làm Primary Key trong một bảng.
+Điều này đảm bảo rằng mỗi bản ghi trong bảng đều có một định danh duy nhất và không thể trùng lặp. 
+	Ví dụ: cột ID trong bảng người dùng thường được đặt làm Primary Key và có Primary Index.
+
+
+******* Không sử dụng khi:
+-Không cần duy nhất và không null: Nếu không cần đảm bảo rằng các giá trị trong cột phải duy nhất và không null, thì không cần tạo Primary Key và do đó không cần Primary Index.
+-Dữ liệu không có một định danh duy nhất: Khi bảng không có bất kỳ cột nào có thể được sử dụng như một định danh duy nhất (ví dụ: bảng lưu trữ thông tin tạm thời không có cột ID riêng biệt), không nên áp dụng Primary Index.
+	
+	5. Composite Index:
+Giải thích:
+Composite Index là index được tạo ra trên nhiều cột. Nó giúp tối ưu hóa các truy vấn sử dụng nhiều cột trong điều kiện WHERE, ORDER BY, hoặc GROUP BY. Tuy nhiên, thứ tự của các cột trong Composite Index là rất quan trọng và sẽ ảnh hưởng đến hiệu suất truy vấn.
+Khi nào sử dụng:
+Sử dụng Composite Index khi bạn thường xuyên thực hiện các truy vấn dựa trên nhiều cột cùng lúc. 
+Ví dụ: nếu bạn có một bảng giao dịch với các cột CustomerID, TransactionDate, và ProductID, và bạn thường xuyên tìm kiếm các giao dịch dựa trên cả CustomerID và TransactionDate, thì việc tạo Composite Index trên hai cột này sẽ giúp cải thiện hiệu suất truy vấn.
+
+******* Không sử dụng khi:
+-Chỉ sử dụng một cột trong các truy vấn: Nếu hầu hết các truy vấn chỉ sử dụng một trong các cột trong Composite Index, việc tạo Composite Index có thể không mang lại hiệu quả.
+-Cột có nhiều giá trị khác biệt: Nếu các cột trong Composite Index có nhiều giá trị khác biệt, đặc biệt là khi kết hợp chúng, index có thể không được tối ưu hóa và gây lãng phí tài nguyên.
+-Cột thường xuyên thay đổi: Nếu các cột trong Composite Index thường xuyên bị thay đổi, việc bảo trì index sẽ trở nên tốn kém và ảnh hưởng đến hiệu suất.
