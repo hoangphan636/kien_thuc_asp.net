@@ -1,0 +1,72 @@
+Khi không dùng Ref truyền tham số từ ngoài vào 1 hàm thì :
+ - thông số bên trong thay đổi nhưng nơi gốc khi truyền vào thì ko đổi 
+
+	// 0. Demo No REF
+
+	int numberRefs = 10;
+	Console.WriteLine($"Trước khi gọi ref: {numberRefs}"); // = 10
+	ModifyWithNoRef(numberRefs);//20
+	Console.WriteLine($"Sau khi gọi ref: {numberRefs}\n"); // = 10
+	
+	  static void ModifyWithNoRef(int number)
+  	{
+      		number *= 2; 
+      		Console.WriteLine($"Bên trong ref method: {number}");
+  	}
+--------------------------------------------------------------------------
+
+Khi dùng Ref truyền tham số từ ngoài vào 1 hàm thì :
+ - Thông số bên trong thay đổi nhưng nơi gốc khi truyền vào thì có đổi 
+
+	// 1. Demo REF
+
+	int numberRefs = 10;
+	Console.WriteLine($"Trước khi gọi ref: {numberRefs}"); // = 10
+	ModifyWithRef(ref numberRef); //20
+	Console.WriteLine($"Sau khi gọi ref: {numberRefs}\n"); // = 20
+
+	static void ModifyWithRef(ref int number)
+	{
+    		number *= 2; // Thay đổi giá trị gốc
+    		Console.WriteLine($"Bên trong ref method: {number}");
+	}
+------------------------------------------------------------------------------
+Khi dùng Out truyền tham số từ ngoài vào 1 hàm thì :
+ - Bắt buộc phải gán giá trị trong method
+
+		// 2. Demo OUT
+
+		int resultOut;
+		GetValueWithOut(out resultOut);
+		Console.WriteLine($"Giá trị từ out parameter: {resultOut}\n"); // = 100
+
+		  static void GetValueWithOut(out int result)
+  		{
+      		// result phải được gán giá trị trước khi thoát method
+      			result = 100;
+      			Console.WriteLine($"Đã gán giá trị trong out method: {result}");
+  		}
+--------------------------------------------------------------------------------
+Khi dùng In truyền tham số từ ngoài vào 1 hàm thì :
+ - Bắt buộc phải gán giá trị trong method 
+ - Tham chiếu chỉ dùng để đọc
+
+		// 2. Demo In
+
+		int numberIn = 30;
+		Console.WriteLine($"Trước khi gọi in: {numberIn}"); // = 30
+		ReadOnlyWithIn(in numberIn);
+		Console.WriteLine($"Sau khi gọi in: {numberIn}\n"); // = 30 (không thay đổi)
+
+
+		   static void ReadOnlyWithIn(in int number)
+ 		{
+     			//number = 50; // Lỗi: không thể thay đổi giá trị
+     			Console.WriteLine($"Đọc giá trị trong in method: {number}");
+ 		}
+
+
+
+
+
+
