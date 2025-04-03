@@ -1,0 +1,34 @@
+1. Singleton (Đơn nhất): Đảm bảo một lớp chỉ có một thể hiện duy nhất và cung cấp một điểm truy cập toàn cục đến nó. Điều này hữu ích khi cần một đối tượng duy nhất để quản lý trạng thái toàn cục, như cấu hình hoặc quản lý phiên làm việc. 
+VIBLO
+
+2. Factory (Nhà máy): Cung cấp một phương thức để tạo đối tượng mà không cần chỉ định lớp cụ thể. Điều này giúp giảm sự phụ thuộc giữa các lớp và tăng tính linh hoạt khi thêm các lớp mới. 
+MEDIUM
+
+3. Repository (Kho lưu trữ): Đóng vai trò như một lớp trung gian giữa ứng dụng và tầng dữ liệu, cung cấp các phương thức để truy xuất, thêm, sửa hoặc xóa dữ liệu. Mẫu này giúp tách biệt logic nghiệp vụ khỏi logic truy cập dữ liệu, làm cho mã dễ bảo trì và kiểm thử hơn.
+
+4. Dependency Injection (Tiêm phụ thuộc): Là một kỹ thuật mà trong đó một đối tượng nhận các phụ thuộc của nó từ bên ngoài thay vì tự tạo ra. Điều này giúp giảm sự phụ thuộc giữa các lớp và tăng khả năng kiểm thử. 
+BOGNOV
+
+5. Observer (Quan sát): Định nghĩa mối quan hệ một-nhiều giữa các đối tượng, sao cho khi một đối tượng thay đổi trạng thái, các đối tượng liên quan được thông báo và cập nhật tự động. Mẫu này thường được sử dụng trong việc triển khai các hệ thống sự kiện. 
+BOGNOV
+
+6. Strategy (Chiến lược): Cho phép định nghĩa một họ các thuật toán, đóng gói từng thuật toán, và làm cho chúng có thể thay thế cho nhau. Mẫu này cho phép thuật toán thay đổi độc lập với các khách hàng sử dụng nó. 
+BOGNOV
+
+
+
+
+
+SELECT 
+    CASE 
+        WHEN s.student_name = 'Tung' THEN 'Hoang'
+        WHEN s.student_name = 'Long' THEN 'Phan'
+        ELSE s.student_name
+    END AS student_display_name,
+    c.course_name, 
+    sc.enrollment_date, 
+    sc.grade
+FROM Students s
+JOIN Student_Courses sc ON s.student_id = sc.student_id
+JOIN Courses c ON sc.course_id = c.course_id
+ORDER BY s.student_name, c.course_name;
