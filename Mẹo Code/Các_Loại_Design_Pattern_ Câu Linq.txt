@@ -32,3 +32,10 @@ FROM Students s
 JOIN Student_Courses sc ON s.student_id = sc.student_id
 JOIN Courses c ON sc.course_id = c.course_id
 ORDER BY s.student_name, c.course_name;
+
+giải thích :
+ END AS student_display_name,
+    c.course_name, 
+    sc.enrollment_date, 
+    sc.grade   
+ghi ở đây thì sẽ cho ra là 4 cột data 
